@@ -1,0 +1,26 @@
+/////////////////////////////////////////////////////
+// Programming using the BOOST Library 
+//
+// n.h.reyes@massey.ac.nz
+/////////////////////////////////////////////////////
+
+BOOST
+https://www.boost.org/
+
+/////////////////////////////////////////////////////
+Install Boost library in WINDOWS
+
+1. download the latest boost: boost_1_82_0 from https://www.boost.org/users/history/version_1_82_0.html
+2. extract to C:\boost_1_82_0
+3. test boost using demo codes (use makefile provided)
+
+
+/////////////////////////////////////////////////////
+Install Boost library in UBUNTU
+
+1. You can install the Boost library on Ubuntu by running the following command in the terminal:
+	
+	sudo apt-get install libboost-all-dev
+
+2. test boost using demo codes (use makefile provided)
+/////////////////////////////////////////////////////

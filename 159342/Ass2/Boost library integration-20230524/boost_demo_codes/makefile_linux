@@ -1,0 +1,15 @@
+CC = g++
+CFLAGS = -Wall -I /usr/include
+LFLAGS = -L /usr/lib -lboost_system -lboost_filesystem
+
+all: main.out
+
+main.out: main.o
+	$(CC) $(LFLAGS) main.o -o main.out
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+
+clean:
+	rm -f main.out
+	rm -f *.o

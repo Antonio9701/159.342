@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cstring>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+
+using namespace std;
+
+int main(int argc, char* argv[]) {
+    int serverSocket, newSocket, portNumber;
+    struct sockaddr_storage serverAddress, clientAddress;
+    socklen_t clientLength;
+
+    // Parse command-line arguments
+    if (argc < 2) {
+        portNumber = 1234;  // Default port number
+    } else {
+        portNumber = atoi(argv[1]);
+    }
+
+    // Create socket
+    serverSocket = socket(AF_INET6, SOCK_STREAM, 0);
+    if (serverSocket < 0) {
+        cerr << "Error: could not create socket" << endl;
+        return 1;
+    }
+
+    // Set up server address
+    bzero((char *) &serverAddress, sizeof(serverAddress));
+    serverAddress.ss_family = AF_INET6;
+    ((struct sockaddr_in6 *)&serverAddress)->sin6_addr = in6addr_any;
+    ((struct sockaddr_in6 *)&serverAddress)->sin6_port = htons(portNumber);
+
+    // Bind socket to address
+    if (bind(serverSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0) {
+        cerr << "Error: could not bind socket to address" << endl;
+        return 1;
+    }
+
+    // Listen for incoming connections
+    listen(serverSocket, 5);
+
+    // Accept incoming connections
+    clientLength = sizeof(struct sockaddr_storage);
+    newSocket = accept(serverSocket, (struct sockaddr *) &clientAddress, &clientLength);
+    if (newSocket < 0) {
+        cerr << "Error: could not accept incoming connection" << endl;
+        return 1;
+    }
+
+    // At this point, you have successfully set up a listening socket and accepted an incoming connection from a client.
+    // You can now move on to implementing the other steps of the FTP server.
+
+    return 0;
+}
